@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AI Scoring tool</title>
+    </head>
+    <body>
+        <h1>Communication Skills Evaluation</h1>
+        <textarea id="transcript" placeholder="Paste transcipt here. "></textarea>
+        <button onclick="submit()">Score</button>
+        <pre id="output"></pre>
+        <script>
+            async function submit(){
+                const text=document.getElementById('transcript').value;
+                const res=await fetch('/score',{
+                    method:'POST',
+                    headers:{'Content-Type':'application/json'},
+                    body:JSON.stringify({transcript:text})
+                });
+                const data=await res.json();
+                document.getElementById('output').innerHTML=JSON.stringify(data,null,2);
+                
+            }
+        </script>
+    </body>
+</html>
